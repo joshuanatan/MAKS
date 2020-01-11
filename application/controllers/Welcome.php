@@ -1,5 +1,12 @@
 <?php
+date_default_timezone_set("Asia/Bangkok");
 class Welcome extends CI_Controller{
+    private $nlp_url = "http://127.0.0.1:8888/project/maks/maks_nlp/ws/endpoint/get_text_meaning";
+    private $nlp_token  = "6531f4480269e4f0e6d694707bf6ba42";
+    private $km_url = "http://127.0.0.1:8888/project/maks/maks_km/ws/endpoint/get_dataset";
+    private $km_token  = "f6caf2d0d7affe8a9cbb0e430d20c2de";
+    private $rb_url = "http://127.0.0.1:8888/project/maks/maks_rb/ws/endpoint/get_result";
+    private $rb_token  = "5964f2df07386de0fa90e940bf201870";
     private $id_system_request;
     private $answer;
     public function __construct(){
@@ -101,11 +108,10 @@ class Welcome extends CI_Controller{
             $this->error_page($fail_code);
          }
     }
-
      private function get_text_meaning($request){
-        $url = "http://joshuanatan.info/maks_nlp/ws/endpoint/get_text_meaning";
+        $url = $this->nlp_url;
         $header = array(
-            "client-token:0cbe03bbbd1dd1667e98145030304c30"
+            "client-token:".$this->nlp_token
         );
         $body = array(
             "search_text" => $request
@@ -131,18 +137,10 @@ class Welcome extends CI_Controller{
      }
      
     private function get_result_dataset($extraction){
-        /*
-        $url = "http://localhost:8888/project/skripsi_support/mysql_query_builder/ws/endpoint/get_dataset";
-        $header = array(
-            "client-token:804fd4df1014130b22087d4eb41b3298"
-        );
-        $body = array(
-            "text_entity_list" => json_encode($extraction)
-        );*/
         
-        $url = "http://joshuanatan.info/maks_qb/ws/endpoint/get_dataset";
+        $url = $this->km_url;
         $header = array(
-            "client-token:804fd4df1014130b22087d4eb41b3298"
+            "client-token:".$this->km_token
         );
         $body = array(
             "text_entity_list" => json_encode($extraction)
@@ -173,9 +171,9 @@ class Welcome extends CI_Controller{
         return false;
     }
     private function get_visualization($dataset){
-        $url = "http://joshuanatan.info/maks_rb/ws/endpoint/get_result";
+        $url = $this->rb_url;
         $header = array(
-            "client-token:6b107a908f4b1643ae4388afeb7cdea7"
+            "client-token:".$this->rb_token
         );
         $body = array(
             "dataset_list" => json_encode($dataset)
