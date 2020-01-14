@@ -16,24 +16,7 @@
                 
                 var transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal) {
-                    var is_command = 0;
-                    if(parseInt(transcript.toString().toLowerCase().trim().localeCompare("go")) == 0){
-                        recognition.stop();
-                        is_command = 1;
-                        $("#form_id").submit();
-                        $("#search_text").val("");
-                    }
-                    if(parseInt(transcript.toString().toLowerCase().trim().localeCompare("refresh")) == 0){
-                        window.location.reload();
-                        is_command = 1;
-                    }
-                    if(parseInt(transcript.toString().toLowerCase().trim().localeCompare("hapus")) == 0){
-                        is_command = 1;
-                        finalTranscript = "";
-                    }
-                    if(is_command === 0){
-                        finalTranscript += transcript;
-                    }
+					finalTranscript += transcript;
                 } 
                 else {
                     interimTranscript += transcript;

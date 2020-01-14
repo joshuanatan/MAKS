@@ -1,14 +1,17 @@
 <?php
 date_default_timezone_set("Asia/Bangkok");
 class Welcome extends CI_Controller{
-    private $nlp_url = "http://127.0.0.1:8888/project/maks/maks_nlp/ws/endpoint/get_text_meaning";
+    
+	private $nlp_url = "http://127.0.0.1:8888/project/maks/maks_nlp/ws/endpoint/get_text_meaning";
     private $nlp_token  = "6531f4480269e4f0e6d694707bf6ba42";
     private $km_url = "http://127.0.0.1:8888/project/maks/maks_km/ws/endpoint/get_dataset";
     private $km_token  = "f6caf2d0d7affe8a9cbb0e430d20c2de";
     private $rb_url = "http://127.0.0.1:8888/project/maks/maks_rb/ws/endpoint/get_result";
     private $rb_token  = "5964f2df07386de0fa90e940bf201870";
-    private $id_system_request;
+    
+	private $id_system_request;
     private $answer;
+	
     public function __construct(){
         parent::__construct();
     }
@@ -35,6 +38,7 @@ class Welcome extends CI_Controller{
         );
         $this->id_system_request = insertRow("system_request",$data);
     }
+	
     private function system_request_result($id_system_request,$step,$result){
         $data = array(
             "id_system_request" => $id_system_request,
@@ -53,13 +57,17 @@ class Welcome extends CI_Controller{
         );
         insertRow("system_request_log",$data);
     }
+	
     public function process(){
         #menampung request dari user
         $request = $this->input->post("question");
+		
         #mengeluarkan request pada saat penampilan hasil
         $this->request_text($request);
+		
         #membuat log request baru
         $this->create_new_request($request);
+		
         #membuat close button
         $this->close_button();  
         
@@ -170,6 +178,7 @@ class Welcome extends CI_Controller{
         }
         return false;
     }
+	
     private function get_visualization($dataset){
         $url = $this->rb_url;
         $header = array(
@@ -240,9 +249,6 @@ class Welcome extends CI_Controller{
             }
         }
         $this->load->view("voice-rss/voice-rss",$data);
-        //$this->load->view("landing/v_result_js");
-        //$this->load->view("plugin/webspeech/texttospeech-js");
-        //$this->load->view("plugin/webspeech/webspeech-js",$answer);
     }
     private function close_button(){
         $button = "<button class = 'offset-lg-11 btn btn-dark btn-sm' onclick = 'window.close()'>&times;</button>";
