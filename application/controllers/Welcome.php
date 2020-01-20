@@ -125,6 +125,7 @@ class Welcome extends CI_Controller{
             "search_text" => $request
         );
         $response = $this->curl->post($url,$header,$body);
+        //print_r($response);
         if($response){
             if($response["err"]){
                 $this->system_request_log($this->id_system_request,"get_text_meaning","ERROR",$response["err"]);
@@ -188,7 +189,7 @@ class Welcome extends CI_Controller{
             "dataset_list" => json_encode($dataset)
         );
         $response = $this->curl->post($url,$header,$body);
-        //print_r($body);
+        //print_r($response);
         if($response){
             if($response["err"]){
                 $this->system_request_log($this->id_system_request,"get_visualization","ERROR",$response["err"]);
