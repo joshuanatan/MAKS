@@ -11,55 +11,59 @@ class Feed extends CI_Controller{
         $toko = array(
             "215","217","243","255","257","261","263","267","273","275","283","315","371","375","377","379","389","405","409","415","419","426","441","453","471","501","503","507","511","517","523","528","533","537","545","553","555","563","567","571","585","595","617","637","641","643","332","266","327","645","649","320","653","655","663","673","677","697","804","376","221","269","303","311","309","347","349","353","386","305","245","345","393","287","321","323","446","293","299","307","447","313","277","289","355","337","359","350","361","594","298","252","413","368","296","369","333","351","223","227","338","219","233","423","235","249","417","367","284","251","253","258","256","290","288","239","254","264","294","306","340","310","363","326","150","388","392","365","387","358","448","300","302","344","334","336","322","381","539","619","364","370","366","346","457","352","281","703","241","343","329","282","339","443","312","314","362","382","384","704","151","286","316","317","319","811","812","813","841","842","157","101","536","672","754","755","756","757","758","759","760","181","182","183","184","751","752","753","318","761","473"
         );
-        for($a = 1; $a<= 2000; $a++){
-            $start = strtotime("1 January 2016");
-            $end = strtotime("13 February 2020");
-            $trxnum = 3000+$a;
-            $data = array(
-                "STORE" => $toko[rand(0,count($toko)-1)],
-                "TRXDATE" => date("Y-m-d",mt_rand($start,$end)),
-                "TRXNUM" => $trxnum,
-                "TRXAMT" => 0
-            );
-            $config = array(
-                "hostname" => "127.0.0.1",
-                "username" => "root",
-                "password" => "",
-                "database" => "skripsi_dataset",
-                "dbdriver" => "mysqli"
-            );
-            $db1 = $this->load->database($config,true);
-            $db1->insert("tbl_sales",$data);
-
-            $jumlah_item = rand(1,9);
-            $control = array();
-            $trxamt = 0;
-            for($b = 0; $b<$jumlah_item; $b++){
-                $item_price = rand(100000,500000);
-                $item_qty = rand(1,10);
-                $disc = rand(50000,$item_price*($item_qty-1));
-                do{
-                    $id_produk = $produk[rand(0,count($produk)-1)];
-                }
-                while(in_array($id_produk,$control));
+        $start ="2018-01-01";
+        $end = "2020-02-13";
+        $a = 0;
+        while (strtotime($start) <= strtotime($end)) {
+            $jumlah_transaksi = rand(20,30);
+            for($i = 0; $i<$jumlah_transaksi; $i++){
+                $trxnum = 3000+($a*1000)+$i;
                 $data = array(
+                    "STORE" => $toko[rand(0,count($toko)-1)],
+                    "TRXDATE" => date('Y-m-d',strtotime($start)),
                     "TRXNUM" => $trxnum,
-                    "SKU" => $id_produk,
-                    "ITMPRICE" => $item_price,
-                    "ITMQTY" => $item_qty,
-                    "DISCAMT" => $disc,
-                    "NETSALES_INCL_PPN" => ($item_price*$item_qty)-$disc,
+                    "TRXAMT" => 0
                 );
-                $db1->insert("tbl_detail_sales",$data);
-                $trxamt += ($item_price*$item_qty)-$disc;
+                $config = array(
+                    "hostname" => "127.0.0.1",
+                    "username" => "root",
+                    "password" => "",
+                    "database" => "maks_dataset",
+                    "dbdriver" => "mysqli"
+                );
+                $db1 = $this->load->database($config,true);
+                $db1->insert("tbl_sales",$data);
+
+                $jumlah_item = rand(1,9);
+                $control = array();
+                $trxamt = 0;
+                for($b = 0; $b<$jumlah_item; $b++){
+                    $item_price = rand(100000,500000);
+                    $item_qty = rand(1,10);
+                    do{
+                        $id_produk = $produk[rand(0,count($produk)-1)];
+                    }
+                    while(in_array($id_produk,$control));
+                    $data = array(
+                        "TRXNUM" => $trxnum,
+                        "SKU" => $id_produk,
+                        "ITMPRICE" => $item_price,
+                        "ITMQTY" => $item_qty,
+                        "NETSALES_INCL_PPN" => ($item_price*$item_qty),
+                    );
+                    $db1->insert("tbl_detail_sales",$data);
+                    $trxamt += ($item_price*$item_qty);
+                }
+                $where = array(
+                    "TRXNUM" => $trxnum
+                );
+                $data = array(
+                    "trxamt" => $trxamt
+                );
+                $db1->update("tbl_sales",$data,$where);
             }
-            $where = array(
-                "TRXNUM" => $trxnum
-            );
-            $data = array(
-                "trxamt" => $trxamt
-            );
-            $db1->update("tbl_sales",$data,$where);
+            $start = date ("Y-m-d", strtotime("+1 day", strtotime($start)));
+            $a++;
         }
     }
 }
