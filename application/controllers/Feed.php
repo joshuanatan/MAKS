@@ -66,5 +66,31 @@ class Feed extends CI_Controller{
             $a++;
         }
     }
+    public function eliminating_multiple_store(){
+        $query = "select distinct store,store_name,district,district_name,store_city,store_class from tbl_toko";
+        $config = array(
+            "hostname" => "127.0.0.1",
+            "username" => "root",
+            "password" => "",
+            "database" => "maks_dataset",
+            "dbdriver" => "mysqli"
+        );
+        $db1 = $this->load->database($config,true);
+        $result = $db1->query($query)->result_array();
+
+        $query = "delete from tbl_toko";
+        $db1->query($query);
+        for($a = 0; $a<count($result); $a++){
+            $data = array(
+                "store" => $result[$a]["store"] ,
+                "store_name" => $result[$a]["store_name"] ,
+                "district" => $result[$a]["district"] ,
+                "district_name" => $result[$a]["district_name"] ,
+                "store_city" => $result[$a]["store_city"] ,
+                "store_class" => $result[$a]["store_class"]
+            );
+            $db1->insert("tbl_toko",$data);
+        }
+    }
 }
 ?>

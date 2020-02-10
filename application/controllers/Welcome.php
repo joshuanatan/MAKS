@@ -3,11 +3,11 @@ date_default_timezone_set("Asia/Bangkok");
 class Welcome extends CI_Controller{
     
 	private $nlp_url = "http://127.0.0.1:8888/project/maks/maks_nlp/ws/endpoint/get_text_meaning";
-    private $nlp_token  = "6531f4480269e4f0e6d694707bf6ba42";
+    private $nlp_token  = "c1852fb45a10a4c7945e805f348b09c1";
     private $km_url = "http://127.0.0.1:8888/project/maks/maks_km/ws/endpoint/get_dataset";
-    private $km_token  = "f6caf2d0d7affe8a9cbb0e430d20c2de";
+    private $km_token  = "bb7b1e87d7864f163ae29e1090c81797	";
     private $rb_url = "http://127.0.0.1:8888/project/maks/maks_rb/ws/endpoint/get_result";
-    private $rb_token  = "5964f2df07386de0fa90e940bf201870";
+    private $rb_token  = "0b8a2c05c17b11aece024b574d59acda";
     
 	private $id_system_request;
     private $answer;
