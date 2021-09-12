@@ -105,10 +105,10 @@
                           <select required class="form-control" name="id_result_type">
                             <option value=0 selected disabled>How do we present this information?</option>
                             <?php for ($a = 0; $a < count($result_type); $a++) : ?>
-                              <?php if ($result_type[$a]["result_type"] == $detail[0]["id_result_type"]) : ?>
+                              <?php if ($result_type[$a]["id_pk_result_type"] == $detail[0]["id_result_type"]) : ?>
                                 <option selected value="<?php echo $result_type[$a]["result_type"]; ?>"><?php echo $result_type[$a]["result_type"]; ?></option>
                               <?php else : ?>
-                                <option value="<?php echo $result_type[$a]["result_type"]; ?>"><?php echo $result_type[$a]["result_type"]; ?></option>
+                                <option value="<?php echo $result_type[$a]["id_pk_result_type"]; ?>"><?php echo $result_type[$a]["result_type"]; ?></option>
                               <?php endif; ?>
                             <?php endfor; ?>
                           </select>

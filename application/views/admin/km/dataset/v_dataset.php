@@ -91,7 +91,7 @@
                   <td style="overflow-wrap:break-word"><?php echo $dataset[$a]["dataset_name"]; ?></td>
                   <td style="overflow-wrap:break-word"><?php echo $dataset[$a]["dataset_query"]; ?></td>
                   <td style="overflow-wrap:break-word"><?php echo $dataset[$a]["dataset_notes"];?></td>
-                  <td style="overflow-wrap:break-word"><?php echo $dataset[$a]["id_result_type"];?></td>
+                  <td style="overflow-wrap:break-word"><?php echo $dataset[$a]["result_type"];?></td>
                   <td style="overflow-wrap:break-word"><?php echo $dataset[$a]["tgl_dataset_last_modified"]; ?></td>
                   <td style="overflow-wrap:break-word">
                     <?php if ($dataset[$a]["status_aktif_dataset"] == 0) : ?>

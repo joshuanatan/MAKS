@@ -32,6 +32,13 @@
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
 
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-fixedheader-bs4/dataTables.fixedheader.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-fixedcolumns-bs4/dataTables.fixedcolumns.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-rowgroup-bs4/dataTables.rowgroup.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-scroller-bs4/dataTables.scroller.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-select-bs4/dataTables.select.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-responsive-bs4/dataTables.responsive.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons-bs4/dataTables.buttons.bootstrap4.css">
   <!-- Fonts -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/fonts/font-awesome/font-awesome.css">
 
@@ -48,113 +55,78 @@
     <div class="panel">
       <div class="panel-body container-fluid">
         <div class="page-header">
-          <h1 class="page-title">MASTER DATASET</h1>
+          <h1 class="page-title">Wit.ai Configuration List</h1>
           <br />
           <ol class="breadcrumb breadcrumb-arrow">
             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Dataset</a></li>
-            <li class="breadcrumb-item">Related</li>
+            <li class="breadcrumb-item active">Wit.ai Configuration</li>
           </ol>
         </div>
-        <div class="page-body col-lg-12">
-          <h5>Related Dataset</h5>
-          <button type="button" data-toggle="modal" data-target="#addRelatedDataset" class="btn btn-primary btn-sm">+ADD RELATED DATASET</button>
-          <br/><br/>
-          <strong>Detail Dataset</strong><br/>
-          Dataset Name: <strong><i><?php echo $detail_dataset[0]["dataset_name"];?></i></strong><br/>
-          Dataset Notes: <strong><i><?php echo $detail_dataset[0]["dataset_notes"];?></i></strong><br/>
-          <br/>
-          <strong>Recipes</strong><br/>
-          Intent: <strong><i><?php echo $detail_dataset[0]["dataset_intent"];?></i></strong><br/>
-          Entities: <strong><i><?php echo nl2br($detail_dataset[0]["jmlh_entity_final"]);?></i></strong><br/>
-          <br/>
-          <form action="<?php echo base_url(); ?>admin/km-function/dataset/remove_related" method="POST">
-            <table class="table table-stripped table-hover table-bordered" data-plugin="dataTable">
-              <thead>
-                <th style="width:5%">Delete</th>
-                <th>Database Name/Hostname</th>
-                <th>Dataset Name</th>
-                <th>Dataset Query</th>
-                <th>Dataset Notes</th>
-                <th>Result Type</th>
-              </thead>
-              <tbody>
-                <?php for ($a = 0; $a < count($registered_related); $a++) : ?>
-                  <tr>
-                    <td>
-                      <div class="checkbox-custom checkbox-danger">
-                        <input type="checkbox" name="checks[]" value="<?php echo $registered_related[$a]["id_submit_dataset_related"]; ?>">
-                        <label></label>
-                      </div>
-                    </td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["db_name"]; ?>/<?php echo $registered_related[$a]["db_hostname"]; ?></td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["dataset_name"]; ?></td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["dataset_query"]; ?></td>
-                    <td style="overflow-wrap:break-word">
-                      <?php echo $registered_related[$a]["dataset_notes"];?><br/>
-                      <br/>
-                      <strong>Dataset Recipes</strong><br/>
-                      Intent: <?php echo $registered_related[$a]["dataset_intent"];?><br/>
-                      Entities: <?php echo nl2br($registered_related[$a]["jmlh_entity_final"]);?>
-                    </td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["result_type"];?></td>
-                  </tr>
-                <?php endfor; ?>
-              </tbody>
-            </table>
-            <button type="submit" class="btn btn-primary btn-sm">SUBMIT</button>
-            <a href="<?php echo base_url(); ?>admin/km-function/dataset" class="btn btn-primary btn-sm">BACK</a>
-          </form>
+        <br />
+        <?php if ($this->session->status == "success") : ?>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close">&times;</button>
+            <?php echo $this->session->msg; ?>
+          </div>
+        <?php elseif ($this->session->status == "error") : ?>
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close">&times;</button>
+            <?php echo $this->session->msg; ?>
+          </div>
+        <?php endif; ?>
+        <div class="page-body">
+          <table class="table table-striped table-hover table-bordered" id="table_driver" style="table-layout:fixed">
+            <thead>
+              <th style="width:5%">#</th>
+              <th>Email Registered</th>
+              <th>Application Name</th>
+              <th>Token</th>
+              <th>Last Modified</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="overflow-wrap:break-word">1</td>
+                <td style="overflow-wrap:break-word"><?php echo $acc[0]["registered_email"]; ?></td>
+                <td style="overflow-wrap:break-word"><?php echo $acc[0]["application_name"]; ?></td>
+                <td style="overflow-wrap:break-word"><?php echo $acc[0]["server_access_token"]; ?></td>
+                <td style="overflow-wrap:break-word"><?php echo $acc[0]["date_wit_ai_acc_last_modified"]; ?></td>
+                <td style="overflow-wrap:break-word">
+                  <button type="button" class="btn btn-primary btn-sm col-lg-12" data-toggle="modal" data-target="#editAccount0">EDIT ACCOUNT</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <div class="modal fade" id="addRelatedDataset">
-          <div class="modal-dialog modal-center modal-lg">
+        <div class="modal fade" id="editAccount0">
+          <div class="modal-dialog modal-center">
             <div class="modal-content">
               <div class="modal-header">
-                <h4>Dataset Repository</h4>
+                <h4>EDIT Wit.ai ACCOUNT</h4>
               </div>
-              <div class="modal-body" style='max-height: calc(100vh - 210px);overflow-y: auto;'>
-                <strong>Detail Dataset</strong><br/>
-                Dataset Name: <strong><i><?php echo $detail_dataset[0]["dataset_name"];?></i></strong><br/>
-                Dataset Notes: <strong><i><?php echo $detail_dataset[0]["dataset_notes"];?></i></strong><br/>
-                <br/>
-                <strong>Recipes</strong><br/>
-                Intent: <strong><i><?php echo $detail_dataset[0]["dataset_intent"];?></i></strong><br/>
-                Entities: <strong><i><?php echo nl2br($detail_dataset[0]["jmlh_entity_final"]);?></i></strong><br/>
-                <br/>
-                <form action="<?php echo base_url(); ?>admin/km-function/dataset/insert_related" method="POST">
-                  <table class="table table-striped table-hover table-bordered" style='width:100%'>
-                    <thead>
-                      <th>#</th>
-                      <th>Database Name/Hostname</th>
-                      <th>Dataset Name</th>
-                      <th>Dataset Query</th>
-                      <th>Dataset Notes</th>
-                      <th>Result Type</th>
-                    </thead>
-                    <tbody>
-                      <?php for ($a = 0; $a < count($dataset_list); $a++) : ?>
-                        <tr>
-                          <td>
-                            <div class='checkbox-custom checkbox-primary'>
-                              <input type='checkbox' name='related_dataset_check[]' value='<?php echo $dataset_list[$a]["id_submit_dataset"];?>'><label></label>
-                            </div>
-                          </td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["db_name"]; ?>/<?php echo $dataset_list[$a]["db_hostname"]; ?></td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["dataset_name"]; ?></td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["dataset_query"]; ?></td>
-                          <td style="overflow-wrap:break-word">
-                            <?php echo $dataset_list[$a]["dataset_notes"];?><br/>
-                            <br/>
-                            <strong>Dataset Recipes</strong><br/>
-                            Intent: <?php echo $dataset_list[$a]["dataset_intent"];?><br/>
-                            Entities: <?php echo nl2br($dataset_list[$a]["jmlh_entity_final"]);?>
-                          </td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["result_type"];?></td>
-                        </tr>
-                      <?php endfor; ?>
-                    </tbody>
-                  </table>
+              <div class="modal-body">
+                <form action="<?php echo base_url(); ?>admin/nlp-function/setup/update" method="POST">
+                  <input type="hidden" value="<?php echo $acc[0]["id_submit_wit_ai_acc"];?>" name="id_submit_wit_ai_acc">
+                  <div class="form-group">
+                    <h5>Registration Email</h5>
+                    <input required type="text" class="form-control" name="registered_email" value="<?php echo $acc[0]["registered_email"]; ?>">
+                  </div>
+                  <div class="form-group">
+                    <h5>Registration Name</h5>
+                    <input required type="text" class="form-control" name="registered_name" value="<?php echo $acc[0]["registered_name"]; ?>">
+                  </div>
+                  <div class="form-group">
+                    <h5>Application ID</h5>
+                    <input required type="text" class="form-control" name="application_id" value="<?php echo $acc[0]["application_id"]; ?>">
+                  </div>
+                  <div class="form-group">
+                    <h5>Application Name</h5>
+                    <input required type="text" class="form-control" name="application_name" value="<?php echo $acc[0]["application_name"]; ?>">
+                  </div>
+                  <div class="form-group">
+                    <h5>Server Access Token</h5>
+                    <input required type="text" class="form-control" name="server_access_token" value="<?php echo $acc[0]["server_access_token"]; ?>">
+                  </div>
                   <button type="submit" class="btn btn-primary btn-sm">SUBMIT</button>
                 </form>
               </div>
@@ -210,6 +182,18 @@
 <script src="<?php echo base_url(); ?>assets/js/script-init.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net/jquery.dataTables.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-fixedheader/dataTables.fixedHeader.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-fixedcolumns/dataTables.fixedColumns.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-rowgroup/dataTables.rowGroup.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-scroller/dataTables.scroller.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-responsive/dataTables.responsive.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/dataTables.buttons.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.html5.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.flash.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.print.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.colVis.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons-bs4/buttons.bootstrap4.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/asrange/jquery-asRange.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/bootbox/bootbox.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/js/Plugin/datatables.js"></script>

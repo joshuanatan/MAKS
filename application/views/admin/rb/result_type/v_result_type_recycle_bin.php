@@ -48,119 +48,91 @@
     <div class="panel">
       <div class="panel-body container-fluid">
         <div class="page-header">
-          <h1 class="page-title">MASTER DATASET</h1>
+          <h1 class="page-title">RESULT TYPE</h1>
           <br />
           <ol class="breadcrumb breadcrumb-arrow">
             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Dataset</a></li>
-            <li class="breadcrumb-item">Related</li>
+            <li class="breadcrumb-item active">Result Type</li>
           </ol>
         </div>
-        <div class="page-body col-lg-12">
-          <h5>Related Dataset</h5>
-          <button type="button" data-toggle="modal" data-target="#addRelatedDataset" class="btn btn-primary btn-sm">+ADD RELATED DATASET</button>
-          <br/><br/>
-          <strong>Detail Dataset</strong><br/>
-          Dataset Name: <strong><i><?php echo $detail_dataset[0]["dataset_name"];?></i></strong><br/>
-          Dataset Notes: <strong><i><?php echo $detail_dataset[0]["dataset_notes"];?></i></strong><br/>
-          <br/>
-          <strong>Recipes</strong><br/>
-          Intent: <strong><i><?php echo $detail_dataset[0]["dataset_intent"];?></i></strong><br/>
-          Entities: <strong><i><?php echo nl2br($detail_dataset[0]["jmlh_entity_final"]);?></i></strong><br/>
-          <br/>
-          <form action="<?php echo base_url(); ?>admin/km-function/dataset/remove_related" method="POST">
-            <table class="table table-stripped table-hover table-bordered" data-plugin="dataTable">
+        <br />
+        <?php if ($this->session->status_result == "success") : ?>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo $this->session->msg_result; ?>
+          </div>
+        <?php elseif ($this->session->status_result == "error") : ?>
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo $this->session->msg_result; ?>
+          </div>
+        <?php endif; ?>
+        <div class="page-body">
+          <div class="col-lg-12">
+            <button type="button" data-toggle="modal" data-target="#addResultType" class="btn btn-primary btn-sm">+ ADD RESULT TYPE</button>
+            <a href="<?php echo base_url(); ?>admin/rb-function/result_type/recycle_bin" class="btn btn-light btn-sm"><i class="icon wb-trash"></i></a>
+            <br /><br />
+            <h4>Result Type</h4>
+            <table class="table table-striped table-hover table-bordered" id="table_driver" data-plugin="dataTable">
               <thead>
-                <th style="width:5%">Delete</th>
-                <th>Database Name/Hostname</th>
-                <th>Dataset Name</th>
-                <th>Dataset Query</th>
-                <th>Dataset Notes</th>
                 <th>Result Type</th>
+                <th>Last Modified</th>
+                <th style="width:15%">Action</th>
               </thead>
               <tbody>
-                <?php for ($a = 0; $a < count($registered_related); $a++) : ?>
+                <?php for ($a = 0; $a < count($result_type); $a++) : ?>
                   <tr>
+                    <td><?php echo $result_type[$a]["result_type"]; ?></td>
+                    <td><?php echo $result_type[$a]["tgl_result_type_last_modified"]; ?></td>
                     <td>
-                      <div class="checkbox-custom checkbox-danger">
-                        <input type="checkbox" name="checks[]" value="<?php echo $registered_related[$a]["id_submit_dataset_related"]; ?>">
-                        <label></label>
-                      </div>
+                      <a href="<?php echo base_url(); ?>admin/rb-function/result_type/activate/<?php echo $result_type[$a]["id_pk_result_type"]; ?>" class="btn btn-light btn-sm col-lg-12">ACTIVATE</a>k
                     </td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["db_name"]; ?>/<?php echo $registered_related[$a]["db_hostname"]; ?></td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["dataset_name"]; ?></td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["dataset_query"]; ?></td>
-                    <td style="overflow-wrap:break-word">
-                      <?php echo $registered_related[$a]["dataset_notes"];?><br/>
-                      <br/>
-                      <strong>Dataset Recipes</strong><br/>
-                      Intent: <?php echo $registered_related[$a]["dataset_intent"];?><br/>
-                      Entities: <?php echo nl2br($registered_related[$a]["jmlh_entity_final"]);?>
-                    </td>
-                    <td style="overflow-wrap:break-word"><?php echo $registered_related[$a]["result_type"];?></td>
                   </tr>
                 <?php endfor; ?>
               </tbody>
             </table>
-            <button type="submit" class="btn btn-primary btn-sm">SUBMIT</button>
-            <a href="<?php echo base_url(); ?>admin/km-function/dataset" class="btn btn-primary btn-sm">BACK</a>
-          </form>
+          </div>
         </div>
-
-        <div class="modal fade" id="addRelatedDataset">
-          <div class="modal-dialog modal-center modal-lg">
+        <div class="modal fade" id="addResultType">
+          <div class="modal-dialog modal-center">
             <div class="modal-content">
               <div class="modal-header">
-                <h4>Dataset Repository</h4>
+                <h4>ADD RESULT TYPE</h4>
               </div>
-              <div class="modal-body" style='max-height: calc(100vh - 210px);overflow-y: auto;'>
-                <strong>Detail Dataset</strong><br/>
-                Dataset Name: <strong><i><?php echo $detail_dataset[0]["dataset_name"];?></i></strong><br/>
-                Dataset Notes: <strong><i><?php echo $detail_dataset[0]["dataset_notes"];?></i></strong><br/>
-                <br/>
-                <strong>Recipes</strong><br/>
-                Intent: <strong><i><?php echo $detail_dataset[0]["dataset_intent"];?></i></strong><br/>
-                Entities: <strong><i><?php echo nl2br($detail_dataset[0]["jmlh_entity_final"]);?></i></strong><br/>
-                <br/>
-                <form action="<?php echo base_url(); ?>admin/km-function/dataset/insert_related" method="POST">
-                  <table class="table table-striped table-hover table-bordered" style='width:100%'>
-                    <thead>
-                      <th>#</th>
-                      <th>Database Name/Hostname</th>
-                      <th>Dataset Name</th>
-                      <th>Dataset Query</th>
-                      <th>Dataset Notes</th>
-                      <th>Result Type</th>
-                    </thead>
-                    <tbody>
-                      <?php for ($a = 0; $a < count($dataset_list); $a++) : ?>
-                        <tr>
-                          <td>
-                            <div class='checkbox-custom checkbox-primary'>
-                              <input type='checkbox' name='related_dataset_check[]' value='<?php echo $dataset_list[$a]["id_submit_dataset"];?>'><label></label>
-                            </div>
-                          </td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["db_name"]; ?>/<?php echo $dataset_list[$a]["db_hostname"]; ?></td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["dataset_name"]; ?></td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["dataset_query"]; ?></td>
-                          <td style="overflow-wrap:break-word">
-                            <?php echo $dataset_list[$a]["dataset_notes"];?><br/>
-                            <br/>
-                            <strong>Dataset Recipes</strong><br/>
-                            Intent: <?php echo $dataset_list[$a]["dataset_intent"];?><br/>
-                            Entities: <?php echo nl2br($dataset_list[$a]["jmlh_entity_final"]);?>
-                          </td>
-                          <td style="overflow-wrap:break-word"><?php echo $dataset_list[$a]["result_type"];?></td>
-                        </tr>
-                      <?php endfor; ?>
-                    </tbody>
-                  </table>
+              <form action="<?php echo base_url(); ?>admin/rb-function/result_type/insert" method="POST">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <h5>Result Type Name</h5>
+                    <input type="text" class="form-control" name="result_type">
+                  </div>
                   <button type="submit" class="btn btn-primary btn-sm">SUBMIT</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <?php for ($a = 0; $a < count($result_type); $a++) : ?>
+          <div class="modal fade" id="editResultType<?php echo $a; ?>">
+            <div class="modal-dialog modal-center">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4>EDIT RESULT TYPE</h4>
+                </div>
+                <form action="<?php echo base_url(); ?>admin/rb-function/result_type/update" method="POST">
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <h5>Result Type Name</h5>
+                      <input type="hidden" name="id_pk_result_type" value="<?php echo $result_type[$a]["id_pk_result_type"]; ?>">
+                      <input type="text" class="form-control" name="result_type" value="<?php echo $result_type[$a]["result_type"]; ?>">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">SUBMIT</button>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
-        </div>
+        <?php endfor; ?>
       </div>
     </div>
   </div>
@@ -210,6 +182,18 @@
 <script src="<?php echo base_url(); ?>assets/js/script-init.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net/jquery.dataTables.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-fixedheader/dataTables.fixedHeader.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-fixedcolumns/dataTables.fixedColumns.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-rowgroup/dataTables.rowGroup.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-scroller/dataTables.scroller.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-responsive/dataTables.responsive.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/dataTables.buttons.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.html5.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.flash.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.print.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons/buttons.colVis.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/datatables.net-buttons-bs4/buttons.bootstrap4.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/asrange/jquery-asRange.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/vendor/bootbox/bootbox.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/js/Plugin/datatables.js"></script>
