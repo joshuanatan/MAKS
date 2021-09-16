@@ -66,7 +66,6 @@ class dataset extends CI_Controller
     $result = executeQuery($sql);
     $data["result_type"] = $result->result_array();
 
-    $this->page_generator->req();
     $this->load->view("admin/km/dataset/v_dataset_add", $data);
     $this->load->view("admin/km/dataset/v_dataset_js", $data);
   }

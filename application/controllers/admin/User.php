@@ -58,14 +58,11 @@ class User extends CI_Controller
       insertRow("tbl_user", $data);
       $this->session->set_flashdata("status", "success");
       $this->session->set_flashdata("msg", "Data is successfully added");
-      redirect("admin/user");
     } else {
-      $this->page_generator->req();
-      $this->page_generator->head_close();
-      $this->page_generator->content_open();
-      $this->load->view("master/v_user_reinsert");
-      $this->page_generator->close();
+      $this->session->set_flashdata("status", "danger");
+      $this->session->set_flashdata("msg", validation_errors());
     }
+    redirect("admin/user");
   }
   public function update()
   {
@@ -128,14 +125,11 @@ class User extends CI_Controller
           $this->session->set_flashdata("msg", "Data is successfully updated");
         }
       }
-      redirect("admin/user");
     } else {
-      $this->page_generator->req();
-      $this->page_generator->head_close();
-      $this->page_generator->content_open();
-      $this->load->view("master/v_user_reupdate");
-      $this->page_generator->close();
+      $this->session->set_flashdata("status", "danger");
+      $this->session->set_flashdata("msg", validation_errors());
     }
+    redirect("admin/user");
   }
   public function update_password()
   {

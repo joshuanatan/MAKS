@@ -1,89 +1,115 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="description" content="ADVANCE SUPPORT SYSTEM FOR DATA PROCESSING">
+	<meta name="author" content="Joshua Natan W">
 
-	<style type="text/css">
+	<title>ADVANCED SUPPORT FOR DATA PROCESSING SYSTEM</title>
 
-	::selection { background-color: #E13300; color: white; }
-	::-moz-selection { background-color: #E13300; color: white; }
+	<link rel="apple-touch-icon" href="<?php echo base_url(); ?>assets/images/apple-touch-icon.png">
+	<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
 
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/css/bootstrap-extend.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/site.min.css">
 
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
+	<!-- Plugins -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/animsition/animsition.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/asscrollable/asScrollable.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/switchery/switchery.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/intro-js/introjs.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/slidepanel/slidePanel.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/vendor/flag-icon-css/flag-icon.css">
 
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
+	<!-- Fonts -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/fonts/web-icons/web-icons.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/fonts/brand-icons/brand-icons.min.css">
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
 
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
 
-	#body {
-		margin: 0 15px 0 15px;
-	}
-
-	p.footer {
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
+	<!-- Scripts -->
+	<script src="<?php echo base_url(); ?>assets/global/vendor/breakpoints/breakpoints.js"></script>
+	<script>
+		Breakpoints();
+	</script>
 </head>
-<body>
 
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
+<body class="animsition dashboard site-menubar-hide site-menubar-unfold">
+	<?php $this->load->view("req/navbar"); ?>
+	<div class="page">
+		<div class="panel">
+			<div class="panel-body container-fluid">
+				<?php if ($this->session->status_login == "success") : ?>
+					<div class="alert alert-success">
+						<?php echo $this->session->msg_login; ?>
+					</div>
+				<?php elseif ($this->session->status_login == "error") : ?>
+					<div class="alert alert-danger">
+						<?php echo $this->session->msg_login; ?>
+					</div>
+				<?php endif; ?>
+				<h2>WELCOME TO <i>Wit.ai</i> ADMINISTRATIVE PAGE</h2>
+				<br />
+				<h3>Quick Brief</h3>
+				<hr />
+				<h4>The main purpose of this module is to manage the interaction between the application with the <i>Natural Language Processing</i> 3<sup>rd</sup> party application</h4>
+				<h5><i>Wit.ai</i> is one of the avaiable <i>Natural Language Processing System</i>. Wit.ai is free. Using <i>Github acoount / Facebook account</i> for authentication</h5>
+				<h5><i>Wit.ai</i> provides several endpoints to build the <i>Natural Language Processing System</i>. Endpoints can be invoked by using <i>HTTP</i> request</h5>
+				<br />
+				<h4>Secondary purpose is to manage interaction with another module in the system. There will be other module that will be taking some data from this module</h4>
+				<h5>This module provides connection by opening endpoints and will be invoked via <i>HTTP</i> request</h5>
+				<br />
+				<br />
 
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+			</div>
+		</div>
 	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
-
 </body>
+
 </html>
+<script src="<?php echo base_url(); ?>assets/global/vendor/babel-external-helpers/babel-external-helpers.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/jquery/jquery.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/popper-js/umd/popper.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/bootstrap/bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/animsition/animsition.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/mousewheel/jquery.mousewheel.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/asscrollbar/jquery-asScrollbar.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/asscrollable/jquery-asScrollable.js"></script>
+
+<!-- Plugins -->
+<script src="<?php echo base_url(); ?>assets/global/vendor/switchery/switchery.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/intro-js/intro.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/screenfull/screenfull.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+
+<!-- Scripts -->
+<script src="<?php echo base_url(); ?>assets/global/js/Component.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/js/Plugin.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/js/Base.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/js/Config.js"></script>
+
+<script src="<?php echo base_url(); ?>assets/js/Section/Menubar.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/Section/Sidebar.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/Section/PageAside.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/Plugin/menu.js"></script>
+
+<!-- Config -->
+<script src="<?php echo base_url(); ?>assets/global/js/config/colors.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/config/tour.js"></script>
+<script>
+	Config.set('assets', '<?php echo base_url(); ?>assets');
+</script>
+
+<!-- Page -->
+<script src="<?php echo base_url(); ?>assets/js/Site.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/js/Plugin/asscrollable.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/js/Plugin/slidepanel.js"></script>
+<script src="<?php echo base_url(); ?>assets/global/js/Plugin/switchery.js"></script>
+
+<!-- Init -->
+<script src="<?php echo base_url(); ?>assets/js/script-init.js"></script>

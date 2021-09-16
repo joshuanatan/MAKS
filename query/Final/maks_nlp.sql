@@ -1,103 +1,18 @@
--- phpMyAdmin SQL Dump
--- version 5.0.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Feb 10, 2020 at 04:35 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Database: `maks_nlp`
---
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `detail_entity`
--- (See below for the actual view)
---
-CREATE TABLE `detail_entity` (
-`id_submit_entity` int(11)
-,`entity_wit_id` varchar(400)
-,`entity_name` varchar(300)
-,`entity_desc` varchar(400)
-,`status_aktif_entity` varchar(1)
-,`tgl_entity_last_modified` datetime
-,`id_user_entity_last_modified` int(11)
-,`id_entity` int(11)
-,`id_submit_entity_value` int(11)
-,`status_aktif_entity_value` varchar(1)
-,`entity_value` varchar(400)
-,`tgl_entity_value_last_modified` datetime
-,`id_user_entity_value_last_modified` int(11)
-,`id_submit_entity_value_expression` int(11)
-,`id_entity_value` int(11)
-,`entity_value_expression` varchar(400)
-,`status_aktif_entity_value_expression` varchar(1)
-,`tgl_entity_value_expression_last_modified` datetime
-,`id_user_entity_value_expression_last_modified` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `detail_samples`
--- (See below for the actual view)
---
-CREATE TABLE `detail_samples` (
-`id_submit_samples` int(11)
-,`samples` varchar(400)
-,`status_aktif_samples` varchar(1)
-,`id_intent` int(11)
-,`tgl_samples_last_modified` datetime
-,`id_user_samples_last_modified` int(11)
-,`id_wit_ai_acc` int(11)
-,`id_submit_samples_detail` int(11)
-,`id_samples` int(11)
-,`start_index` int(11)
-,`end_index` int(11)
-,`id_entity_value` int(11)
-,`id_submit_entity_value` int(11)
-,`id_entity` int(11)
-,`entity_value` varchar(400)
-,`status_aktif_entity_value` varchar(1)
-,`tgl_entity_value_last_modified` datetime
-,`id_user_entity_value_last_modified` int(11)
-,`id_submit_entity` int(11)
-,`entity_wit_id` varchar(400)
-,`entity_name` varchar(300)
-,`entity_desc` varchar(400)
-,`status_aktif_entity` varchar(1)
-,`tgl_entity_last_modified` datetime
-,`id_user_entity_last_modified` int(11)
-,`id_submit_intent` int(11)
-,`intent` varchar(400)
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_entity`
---
-
+DROP TABLE IF EXISTS `tbl_entity`;
 CREATE TABLE `tbl_entity` (
   `id_submit_entity` int(11) NOT NULL,
   `id_wit_ai_acc` int(11) NOT NULL,
   `entity_wit_id` varchar(400) DEFAULT NULL,
   `entity_name` varchar(300) DEFAULT NULL,
   `entity_desc` varchar(400) DEFAULT NULL,
+  `entity` varchar(400) DEFAULT NULL,
+  `entity_category` varchar(100) DEFAULT NULL COMMENT 'INTENT/ENTITY',
   `status_aktif_entity` varchar(1) DEFAULT '0' COMMENT '0 = belum naik ke wit, 1 suda naik',
   `tgl_entity_last_modified` datetime DEFAULT NULL,
   `id_user_entity_last_modified` int(11) DEFAULT NULL
@@ -119,7 +34,7 @@ INSERT INTO `tbl_entity` (`id_submit_entity`, `id_wit_ai_acc`, `entity_wit_id`, 
 --
 -- Table structure for table `tbl_entity_value`
 --
-
+DROP TABLE IF EXISTS `tbl_entity_value`;
 CREATE TABLE `tbl_entity_value` (
   `id_submit_entity_value` int(11) NOT NULL,
   `id_entity` int(11) DEFAULT NULL,
@@ -149,7 +64,7 @@ INSERT INTO `tbl_entity_value` (`id_submit_entity_value`, `id_entity`, `entity_v
 --
 -- Table structure for table `tbl_entity_value_expression`
 --
-
+DROP TABLE IF EXISTS `tbl_entity_value_expression`;
 CREATE TABLE `tbl_entity_value_expression` (
   `id_submit_entity_value_expression` int(11) NOT NULL,
   `id_entity_value` int(11) DEFAULT NULL,
@@ -192,7 +107,7 @@ INSERT INTO `tbl_entity_value_expression` (`id_submit_entity_value_expression`, 
 --
 -- Table structure for table `tbl_intent`
 --
-
+DROP TABLE IF EXISTS `tbl_intent`;
 CREATE TABLE `tbl_intent` (
   `id_submit_intent` int(11) NOT NULL,
   `id_wit_ai_acc` int(11) DEFAULT NULL,
@@ -215,7 +130,7 @@ INSERT INTO `tbl_intent` (`id_submit_intent`, `id_wit_ai_acc`, `intent`, `status
 --
 -- Table structure for table `tbl_samples`
 --
-
+DROP TABLE IF EXISTS `tbl_samples`;
 CREATE TABLE `tbl_samples` (
   `id_submit_samples` int(11) NOT NULL,
   `id_wit_ai_acc` int(11) NOT NULL,
@@ -255,7 +170,7 @@ INSERT INTO `tbl_samples` (`id_submit_samples`, `id_wit_ai_acc`, `samples`, `sta
 --
 -- Table structure for table `tbl_samples_entity`
 --
-
+DROP TABLE IF EXISTS `tbl_samples_entity`;
 CREATE TABLE `tbl_samples_entity` (
   `id_submit_samples_detail` int(11) NOT NULL,
   `id_samples` int(11) DEFAULT NULL,
@@ -289,59 +204,12 @@ INSERT INTO `tbl_samples_entity` (`id_submit_samples_detail`, `id_samples`, `sta
 (18, 18, 23, 27, 8);
 
 -- --------------------------------------------------------
-
---
--- Table structure for table `tbl_token`
---
-
-CREATE TABLE `tbl_token` (
-  `id_submit_token` int(11) NOT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `nama_client` varchar(300) DEFAULT NULL,
-  `status_aktif_token` varchar(1) DEFAULT NULL,
-  `tgl_token_last_modified` datetime DEFAULT NULL,
-  `id_user_token_last_modified` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_token`
---
-
-INSERT INTO `tbl_token` (`id_submit_token`, `token`, `nama_client`, `status_aktif_token`, `tgl_token_last_modified`, `id_user_token_last_modified`) VALUES
-(1, 'c1852fb45a10a4c7945e805f348b09c1', 'MAKS Application', '1', '2020-02-09 11:42:41', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_user`
---
-
-CREATE TABLE `tbl_user` (
-  `id_submit_user` int(11) NOT NULL,
-  `nama_user` varchar(200) DEFAULT NULL,
-  `password_user` varchar(300) DEFAULT NULL,
-  `email_user` varchar(200) DEFAULT NULL,
-  `status_aktif_user` varchar(1) DEFAULT NULL,
-  `tgl_user_last_modified` datetime DEFAULT NULL,
-  `id_user_user_last_modified` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_user`
---
-
-INSERT INTO `tbl_user` (`id_submit_user`, `nama_user`, `password_user`, `email_user`, `status_aktif_user`, `tgl_user_last_modified`, `id_user_user_last_modified`) VALUES
-(1, 'Joshua Natan', 'e10adc3949ba59abbe56e057f20f883e', 'joshuanatan.jn@gmail.com', '1', '2019-10-29 04:46:48', 0),
-(2, 'Joshua Wijaya', 'e10adc3949ba59abbe56e057f20f883e', 'joshuawijaya@gmail.com', '1', '2020-02-09 10:35:44', 1),
-(3, 'John Doe', 'e10adc3949ba59abbe56e057f20f883e', 'johndoe@email.com', '1', '2020-02-09 10:44:28', 1),
-(4, 'User Doe John', 'e10adc3949ba59abbe56e057f20f883e', 'userdoe@email.com', '1', '2020-02-09 11:42:12', 1);
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tbl_wit_ai_acc`
 --
-
+DROP TABLE IF EXISTS `tbl_wit_ai_acc`;
 CREATE TABLE `tbl_wit_ai_acc` (
   `id_submit_wit_ai_acc` int(11) NOT NULL,
   `registered_email` varchar(400) DEFAULT NULL,
@@ -363,50 +231,13 @@ INSERT INTO `tbl_wit_ai_acc` (`id_submit_wit_ai_acc`, `registered_email`, `regis
 
 -- --------------------------------------------------------
 
---
--- Stand-in structure for view `v_samples_list`
--- (See below for the actual view)
---
-CREATE TABLE `v_samples_list` (
-`id_submit_samples` int(11)
-,`id_wit_ai_acc` int(11)
-,`samples` varchar(400)
-,`status_aktif_samples` varchar(1)
-,`id_intent` int(11)
-,`tgl_samples_last_modified` datetime
-,`id_user_samples_last_modified` int(11)
-,`id_submit_intent` int(11)
-,`intent` varchar(400)
-,`status_aktif_intent` varchar(1)
-,`id_user_intent_last_modified` int(11)
-);
-
 -- --------------------------------------------------------
 
 --
 -- Structure for view `detail_entity`
 --
-DROP TABLE IF EXISTS `detail_entity`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_entity`  AS  select `tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`entity_wit_id` AS `entity_wit_id`,`tbl_entity`.`entity_name` AS `entity_name`,`tbl_entity`.`entity_desc` AS `entity_desc`,`tbl_entity`.`status_aktif_entity` AS `status_aktif_entity`,`tbl_entity`.`tgl_entity_last_modified` AS `tgl_entity_last_modified`,`tbl_entity`.`id_user_entity_last_modified` AS `id_user_entity_last_modified`,`tbl_entity_value`.`id_entity` AS `id_entity`,`tbl_entity_value`.`id_submit_entity_value` AS `id_submit_entity_value`,`tbl_entity_value`.`status_aktif_entity_value` AS `status_aktif_entity_value`,`tbl_entity_value`.`entity_value` AS `entity_value`,`tbl_entity_value`.`tgl_entity_value_last_modified` AS `tgl_entity_value_last_modified`,`tbl_entity_value`.`id_user_entity_value_last_modified` AS `id_user_entity_value_last_modified`,`tbl_entity_value_expression`.`id_submit_entity_value_expression` AS `id_submit_entity_value_expression`,`tbl_entity_value_expression`.`id_entity_value` AS `id_entity_value`,`tbl_entity_value_expression`.`entity_value_expression` AS `entity_value_expression`,`tbl_entity_value_expression`.`status_aktif_entity_value_expression` AS `status_aktif_entity_value_expression`,`tbl_entity_value_expression`.`tgl_entity_value_expression_last_modified` AS `tgl_entity_value_expression_last_modified`,`tbl_entity_value_expression`.`id_user_entity_value_expression_last_modified` AS `id_user_entity_value_expression_last_modified` from ((`tbl_entity_value_expression` join `tbl_entity_value` on(`tbl_entity_value`.`id_submit_entity_value` = `tbl_entity_value_expression`.`id_entity_value`)) join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_value`.`id_entity`)) ;
 
--- --------------------------------------------------------
-
---
--- Structure for view `detail_samples`
---
-DROP TABLE IF EXISTS `detail_samples`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detail_samples`  AS  select `tbl_samples`.`id_submit_samples` AS `id_submit_samples`,`tbl_samples`.`samples` AS `samples`,`tbl_samples`.`status_aktif_samples` AS `status_aktif_samples`,`tbl_samples`.`id_intent` AS `id_intent`,`tbl_samples`.`tgl_samples_last_modified` AS `tgl_samples_last_modified`,`tbl_samples`.`id_user_samples_last_modified` AS `id_user_samples_last_modified`,`tbl_samples`.`id_wit_ai_acc` AS `id_wit_ai_acc`,`tbl_samples_entity`.`id_submit_samples_detail` AS `id_submit_samples_detail`,`tbl_samples_entity`.`id_samples` AS `id_samples`,`tbl_samples_entity`.`start_index` AS `start_index`,`tbl_samples_entity`.`end_index` AS `end_index`,`tbl_samples_entity`.`id_entity_value` AS `id_entity_value`,`tbl_entity_value`.`id_submit_entity_value` AS `id_submit_entity_value`,`tbl_entity_value`.`id_entity` AS `id_entity`,`tbl_entity_value`.`entity_value` AS `entity_value`,`tbl_entity_value`.`status_aktif_entity_value` AS `status_aktif_entity_value`,`tbl_entity_value`.`tgl_entity_value_last_modified` AS `tgl_entity_value_last_modified`,`tbl_entity_value`.`id_user_entity_value_last_modified` AS `id_user_entity_value_last_modified`,`tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`entity_wit_id` AS `entity_wit_id`,`tbl_entity`.`entity_name` AS `entity_name`,`tbl_entity`.`entity_desc` AS `entity_desc`,`tbl_entity`.`status_aktif_entity` AS `status_aktif_entity`,`tbl_entity`.`tgl_entity_last_modified` AS `tgl_entity_last_modified`,`tbl_entity`.`id_user_entity_last_modified` AS `id_user_entity_last_modified`,`tbl_intent`.`id_submit_intent` AS `id_submit_intent`,`tbl_intent`.`intent` AS `intent` from ((((`tbl_samples` join `tbl_intent` on(`tbl_intent`.`id_submit_intent` = `tbl_samples`.`id_intent`)) left join `tbl_samples_entity` on(`tbl_samples_entity`.`id_samples` = `tbl_samples`.`id_submit_samples`)) left join `tbl_entity_value` on(`tbl_entity_value`.`id_submit_entity_value` = `tbl_samples_entity`.`id_entity_value`)) left join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_value`.`id_entity`)) ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_samples_list`
---
-DROP TABLE IF EXISTS `v_samples_list`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_samples_list`  AS  select `tbl_samples`.`id_submit_samples` AS `id_submit_samples`,`tbl_samples`.`id_wit_ai_acc` AS `id_wit_ai_acc`,`tbl_samples`.`samples` AS `samples`,`tbl_samples`.`status_aktif_samples` AS `status_aktif_samples`,`tbl_samples`.`id_intent` AS `id_intent`,`tbl_samples`.`tgl_samples_last_modified` AS `tgl_samples_last_modified`,`tbl_samples`.`id_user_samples_last_modified` AS `id_user_samples_last_modified`,`tbl_intent`.`id_submit_intent` AS `id_submit_intent`,`tbl_intent`.`intent` AS `intent`,`tbl_intent`.`status_aktif_intent` AS `status_aktif_intent`,`tbl_intent`.`id_user_intent_last_modified` AS `id_user_intent_last_modified` from (`tbl_samples` join `tbl_intent` on(`tbl_intent`.`id_submit_intent` = `tbl_samples`.`id_intent`)) ;
 
 --
 -- Indexes for dumped tables
@@ -447,18 +278,6 @@ ALTER TABLE `tbl_samples`
 --
 ALTER TABLE `tbl_samples_entity`
   ADD PRIMARY KEY (`id_submit_samples_detail`);
-
---
--- Indexes for table `tbl_token`
---
-ALTER TABLE `tbl_token`
-  ADD PRIMARY KEY (`id_submit_token`);
-
---
--- Indexes for table `tbl_user`
---
-ALTER TABLE `tbl_user`
-  ADD PRIMARY KEY (`id_submit_user`);
 
 --
 -- Indexes for table `tbl_wit_ai_acc`
@@ -505,19 +324,6 @@ ALTER TABLE `tbl_samples`
 --
 ALTER TABLE `tbl_samples_entity`
   MODIFY `id_submit_samples_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `tbl_token`
---
-ALTER TABLE `tbl_token`
-  MODIFY `id_submit_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tbl_user`
---
-ALTER TABLE `tbl_user`
-  MODIFY `id_submit_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tbl_wit_ai_acc`
 --
@@ -525,6 +331,23 @@ ALTER TABLE `tbl_wit_ai_acc`
   MODIFY `id_submit_wit_ai_acc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE VIEW `detail_entity`  AS  select `tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`entity_wit_id` AS `entity_wit_id`,`tbl_entity`.`entity_name` AS `entity_name`,`tbl_entity`.`entity_desc` AS `entity_desc`,`tbl_entity`.`status_aktif_entity` AS `status_aktif_entity`,`tbl_entity`.`tgl_entity_last_modified` AS `tgl_entity_last_modified`,`tbl_entity`.`id_user_entity_last_modified` AS `id_user_entity_last_modified`,`tbl_entity_value`.`id_entity` AS `id_entity`,`tbl_entity_value`.`id_submit_entity_value` AS `id_submit_entity_value`,`tbl_entity_value`.`status_aktif_entity_value` AS `status_aktif_entity_value`,`tbl_entity_value`.`entity_value` AS `entity_value`,`tbl_entity_value`.`tgl_entity_value_last_modified` AS `tgl_entity_value_last_modified`,`tbl_entity_value`.`id_user_entity_value_last_modified` AS `id_user_entity_value_last_modified`,`tbl_entity_value_expression`.`id_submit_entity_value_expression` AS `id_submit_entity_value_expression`,`tbl_entity_value_expression`.`id_entity_value` AS `id_entity_value`,`tbl_entity_value_expression`.`entity_value_expression` AS `entity_value_expression`,`tbl_entity_value_expression`.`status_aktif_entity_value_expression` AS `status_aktif_entity_value_expression`,`tbl_entity_value_expression`.`tgl_entity_value_expression_last_modified` AS `tgl_entity_value_expression_last_modified`,`tbl_entity_value_expression`.`id_user_entity_value_expression_last_modified` AS `id_user_entity_value_expression_last_modified` from ((`tbl_entity_value_expression` join `tbl_entity_value` on(`tbl_entity_value`.`id_submit_entity_value` = `tbl_entity_value_expression`.`id_entity_value`)) join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_value`.`id_entity`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `detail_samples`
+--
+
+
+CREATE VIEW `detail_samples`  AS  select `tbl_samples`.`id_submit_samples` AS `id_submit_samples`,`tbl_samples`.`samples` AS `samples`,`tbl_samples`.`status_aktif_samples` AS `status_aktif_samples`,`tbl_samples`.`id_intent` AS `id_intent`,`tbl_samples`.`tgl_samples_last_modified` AS `tgl_samples_last_modified`,`tbl_samples`.`id_user_samples_last_modified` AS `id_user_samples_last_modified`,`tbl_samples`.`id_wit_ai_acc` AS `id_wit_ai_acc`,`tbl_samples_entity`.`id_submit_samples_detail` AS `id_submit_samples_detail`,`tbl_samples_entity`.`id_samples` AS `id_samples`,`tbl_samples_entity`.`start_index` AS `start_index`,`tbl_samples_entity`.`end_index` AS `end_index`,`tbl_samples_entity`.`id_entity_value` AS `id_entity_value`,`tbl_entity_value`.`id_submit_entity_value` AS `id_submit_entity_value`,`tbl_entity_value`.`id_entity` AS `id_entity`,`tbl_entity_value`.`entity_value` AS `entity_value`,`tbl_entity_value`.`status_aktif_entity_value` AS `status_aktif_entity_value`,`tbl_entity_value`.`tgl_entity_value_last_modified` AS `tgl_entity_value_last_modified`,`tbl_entity_value`.`id_user_entity_value_last_modified` AS `id_user_entity_value_last_modified`,`tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`entity_wit_id` AS `entity_wit_id`,`tbl_entity`.`entity_name` AS `entity_name`,`tbl_entity`.`entity_desc` AS `entity_desc`,`tbl_entity`.`status_aktif_entity` AS `status_aktif_entity`,`tbl_entity`.`tgl_entity_last_modified` AS `tgl_entity_last_modified`,`tbl_entity`.`id_user_entity_last_modified` AS `id_user_entity_last_modified`,`tbl_intent`.`id_submit_intent` AS `id_submit_intent`,`tbl_intent`.`intent` AS `intent` from ((((`tbl_samples` join `tbl_intent` on(`tbl_intent`.`id_submit_intent` = `tbl_samples`.`id_intent`)) left join `tbl_samples_entity` on(`tbl_samples_entity`.`id_samples` = `tbl_samples`.`id_submit_samples`)) left join `tbl_entity_value` on(`tbl_entity_value`.`id_submit_entity_value` = `tbl_samples_entity`.`id_entity_value`)) left join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_value`.`id_entity`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_samples_list`
+--
+
+
+CREATE VIEW `v_samples_list`  AS  select `tbl_samples`.`id_submit_samples` AS `id_submit_samples`,`tbl_samples`.`id_wit_ai_acc` AS `id_wit_ai_acc`,`tbl_samples`.`samples` AS `samples`,`tbl_samples`.`status_aktif_samples` AS `status_aktif_samples`,`tbl_samples`.`id_intent` AS `id_intent`,`tbl_samples`.`tgl_samples_last_modified` AS `tgl_samples_last_modified`,`tbl_samples`.`id_user_samples_last_modified` AS `id_user_samples_last_modified`,`tbl_intent`.`id_submit_intent` AS `id_submit_intent`,`tbl_intent`.`intent` AS `intent`,`tbl_intent`.`status_aktif_intent` AS `status_aktif_intent`,`tbl_intent`.`id_user_intent_last_modified` AS `id_user_intent_last_modified` from (`tbl_samples` join `tbl_intent` on(`tbl_intent`.`id_submit_intent` = `tbl_samples`.`id_intent`)) ;

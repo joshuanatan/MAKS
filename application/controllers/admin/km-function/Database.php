@@ -69,14 +69,11 @@ class Database extends CI_Controller
       $this->session->set_flashdata("status_db", "success");
       $this->session->set_flashdata("msg_db", $msg);
 
-      redirect("admin/km-function/database");
     } else {
-      $this->page_generator->req();
-      $this->page_generator->head_close();
-      $this->page_generator->content_open();
-      $this->load->view("admin/km/database/v_database_reinsert");
-      $this->page_generator->close();
+      $this->session->set_flashdata("status_db", "success");
+      $this->session->set_flashdata("msg_db", validation_errors());
     }
+    redirect("admin/km-function/database");
   }
   public function delete($id_submit_db_connection)
   {

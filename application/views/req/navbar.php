@@ -112,27 +112,27 @@
             </a>
           </li>
           <li class="site-menu-item">
-            <a href="<?php echo base_url(); ?>setup">
+            <a href="<?php echo base_url(); ?>admin/nlp-function/setup">
               <i class="site-menu-icon wb-arrow-expand" aria-hidden="true"></i>
               <span class="site-menu-title">Wit.ai Configuration</span>
             </a>
           </li>
           <li class="site-menu-item">
-            <a href="<?php echo base_url(); ?>setup">
+            <a href="<?php echo base_url(); ?>admin/km-function/database">
               <i class="site-menu-icon wb-arrow-expand" aria-hidden="true"></i>
               <span class="site-menu-title">Data Source Connection</span>
             </a>
           </li>
           <li class="site-menu-item">
-            <a href="<?php echo base_url(); ?>setup">
+            <a href="<?php echo base_url(); ?>admin/km-function/dataset">
               <i class="site-menu-icon wb-arrow-expand" aria-hidden="true"></i>
               <span class="site-menu-title">Query Builder</span>
             </a>
           </li>
           <li class="site-menu-item">
-            <a href="<?php echo base_url(); ?>setup">
+            <a href="<?php echo base_url(); ?>admin/rb-function/result_type">
               <i class="site-menu-icon wb-arrow-expand" aria-hidden="true"></i>
-              <span class="site-menu-title">Result Builder</span>
+              <span class="site-menu-title">Result Type</span>
             </a>
           </li>
         </ul>

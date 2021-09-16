@@ -1,32 +1,11 @@
--- phpMyAdmin SQL Dump
--- version 5.0.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Feb 10, 2020 at 04:35 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+drop database maks_temp_km;
+create database maks_temp_km;
+use maks_temp_km;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `maks_km`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_dataset`
---
 
 CREATE TABLE `tbl_dataset` (
   `id_submit_dataset` int(11) NOT NULL,
@@ -260,215 +239,6 @@ INSERT INTO `tbl_entity_combination_list` (`id_submit_entity_combination_list`, 
 (28, 2, 12, '1', '2020-02-10 09:21:49', 1),
 (29, 1, 13, '1', '2020-02-10 10:31:51', 1);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_token`
---
-
-CREATE TABLE `tbl_token` (
-  `id_submit_token` int(11) NOT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `nama_client` varchar(300) DEFAULT NULL,
-  `status_aktif_token` varchar(1) DEFAULT NULL,
-  `tgl_token_last_modified` datetime DEFAULT NULL,
-  `id_user_token_last_modified` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_token`
---
-
-INSERT INTO `tbl_token` (`id_submit_token`, `token`, `nama_client`, `status_aktif_token`, `tgl_token_last_modified`, `id_user_token_last_modified`) VALUES
-(1, 'bb7b1e87d7864f163ae29e1090c81797', 'MAKS application', '1', '2020-02-09 20:05:05', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_user`
---
-
-CREATE TABLE `tbl_user` (
-  `id_submit_user` int(11) NOT NULL,
-  `nama_user` varchar(200) DEFAULT NULL,
-  `password_user` varchar(300) DEFAULT NULL,
-  `email_user` varchar(200) DEFAULT NULL,
-  `status_aktif_user` varchar(1) DEFAULT NULL,
-  `tgl_user_last_modified` datetime DEFAULT NULL,
-  `id_user_user_last_modified` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_user`
---
-
-INSERT INTO `tbl_user` (`id_submit_user`, `nama_user`, `password_user`, `email_user`, `status_aktif_user`, `tgl_user_last_modified`, `id_user_user_last_modified`) VALUES
-(1, 'Joshua Natan', 'e10adc3949ba59abbe56e057f20f883e', 'joshuanatan.jn@gmail.com', '1', '2020-02-07 08:32:58', 0),
-(2, 'Joseph Doe', 'e10adc3949ba59abbe56e057f20f883e', 'johndoe@email.com', '1', '2020-02-09 19:53:10', 1),
-(3, 'John Doe Joseph', 'e10adc3949ba59abbe56e057f20f883e', 'johnexsists@email.com', '1', '2020-02-09 20:04:37', 1);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_detail_dataset`
--- (See below for the actual view)
---
-CREATE TABLE `v_detail_dataset` (
-`id_submit_dataset` int(11)
-,`dataset_name` varchar(200)
-,`dataset_query` text
-,`id_db_connection` int(11)
-,`status_aktif_dataset` varchar(1)
-,`tgl_dataset_last_modified` datetime
-,`id_user_dataset_last_modified` int(11)
-,`id_submit_db_connection` int(11)
-,`db_hostname` varchar(400)
-,`db_username` varchar(400)
-,`db_password` varchar(1000)
-,`db_name` varchar(100)
-,`status_aktif_db_connection` varchar(1)
-,`tgl_db_connection_last_modified` datetime
-,`id_user_db_connection_last_modified` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_detail_entity_mapping`
--- (See below for the actual view)
---
-CREATE TABLE `v_detail_entity_mapping` (
-`id_submit_entity_combination_list` int(11)
-,`id_entity` int(11)
-,`id_entity_combination` int(11)
-,`tgl_entity_combination_list_last_modified` datetime
-,`id_submit_entity` int(11)
-,`entity` varchar(400)
-,`entity_category` varchar(100)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_endpoint_intent_dataset_mapping`
--- (See below for the actual view)
---
-CREATE TABLE `v_endpoint_intent_dataset_mapping` (
-`id_submit_entity_combination` int(11)
-,`id_submit_dataset` int(11)
-,`entity` mediumtext
-,`entity_category` mediumtext
-,`dataset_key` varchar(50)
-,`dataset_name` varchar(200)
-,`dataset_query` text
-,`id_db_connection` int(11)
-,`db_hostname` varchar(400)
-,`status_aktif_dataset` varchar(1)
-,`tgl_dataset_last_modified` datetime
-,`db_name` varchar(100)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_entity_dataset_mapping`
--- (See below for the actual view)
---
-CREATE TABLE `v_entity_dataset_mapping` (
-`id_submit_entity_combination` int(11)
-,`id_entity` int(11)
-,`entity` varchar(400)
-,`entity_category` varchar(100)
-,`id_entity_combination` int(11)
-,`dataset_key` varchar(50)
-,`dataset_name` varchar(200)
-,`dataset_query` text
-,`id_db_connection` int(11)
-,`status_aktif_entity_combination_list` varchar(1)
-,`status_aktif_entity` varchar(1)
-,`status_aktif_dataset` varchar(1)
-,`status_aktif_entity_combination` varchar(1)
-,`id_submit_entity_combination_list` int(11)
-,`tgl_entity_combination_list_last_modified` datetime
-,`id_user_entity_combination_list_last_modified` int(11)
-,`id_submit_entity` int(11)
-,`tgl_entity_last_modified` datetime
-,`id_user_entity_last_modified` int(11)
-,`tgl_entity_combination_last_modified` datetime
-,`id_user_entity_combination_last_modified` int(11)
-,`id_submit_dataset` int(11)
-,`tgl_dataset_last_modified` datetime
-,`id_user_dataset_last_modified` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_related_dataset`
--- (See below for the actual view)
---
-CREATE TABLE `v_related_dataset` (
-`id_submit_dataset_related` int(11)
-,`id_dataset` int(11)
-,`id_dataset_related` int(11)
-,`id_submit_dataset` int(11)
-,`dataset_key` varchar(50)
-,`dataset_name` varchar(200)
-,`dataset_query` text
-,`id_entity_combination` int(11)
-,`id_db_connection` int(11)
-,`status_aktif_dataset_related` varchar(1)
-,`tgl_dataset_related_last_modified` datetime
-,`id_user_dataset_related_last_modified` int(11)
-,`status_aktif_dataset` varchar(1)
-,`tgl_dataset_last_modified` datetime
-,`id_user_dataset_last_modified` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_detail_dataset`
---
-DROP TABLE IF EXISTS `v_detail_dataset`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detail_dataset`  AS  select `tbl_dataset`.`id_submit_dataset` AS `id_submit_dataset`,`tbl_dataset`.`dataset_name` AS `dataset_name`,`tbl_dataset`.`dataset_query` AS `dataset_query`,`tbl_dataset`.`id_db_connection` AS `id_db_connection`,`tbl_dataset`.`status_aktif_dataset` AS `status_aktif_dataset`,`tbl_dataset`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_dataset`.`id_user_dataset_last_modified` AS `id_user_dataset_last_modified`,`tbl_db_connection`.`id_submit_db_connection` AS `id_submit_db_connection`,`tbl_db_connection`.`db_hostname` AS `db_hostname`,`tbl_db_connection`.`db_username` AS `db_username`,`tbl_db_connection`.`db_password` AS `db_password`,`tbl_db_connection`.`db_name` AS `db_name`,`tbl_db_connection`.`status_aktif_db_connection` AS `status_aktif_db_connection`,`tbl_db_connection`.`tgl_db_connection_last_modified` AS `tgl_db_connection_last_modified`,`tbl_db_connection`.`id_user_db_connection_last_modified` AS `id_user_db_connection_last_modified` from (`tbl_dataset` join `tbl_db_connection` on(`tbl_db_connection`.`id_submit_db_connection` = `tbl_dataset`.`id_db_connection`)) ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_detail_entity_mapping`
---
-DROP TABLE IF EXISTS `v_detail_entity_mapping`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detail_entity_mapping`  AS  select `tbl_entity_combination_list`.`id_submit_entity_combination_list` AS `id_submit_entity_combination_list`,`tbl_entity_combination_list`.`id_entity` AS `id_entity`,`tbl_entity_combination_list`.`id_entity_combination` AS `id_entity_combination`,`tbl_entity_combination_list`.`tgl_entity_combination_list_last_modified` AS `tgl_entity_combination_list_last_modified`,`tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`entity` AS `entity`,`tbl_entity`.`entity_category` AS `entity_category` from (`tbl_entity_combination_list` join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_combination_list`.`id_entity`)) where `tbl_entity`.`status_aktif_entity` = 1 and `tbl_entity_combination_list`.`status_aktif_entity_combination_list` = 1 ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_endpoint_intent_dataset_mapping`
---
-DROP TABLE IF EXISTS `v_endpoint_intent_dataset_mapping`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_endpoint_intent_dataset_mapping`  AS  select `v_entity_dataset_mapping`.`id_submit_entity_combination` AS `id_submit_entity_combination`,`v_entity_dataset_mapping`.`id_submit_dataset` AS `id_submit_dataset`,group_concat(`v_entity_dataset_mapping`.`entity` order by `v_entity_dataset_mapping`.`entity` ASC separator ',') AS `entity`,group_concat(`v_entity_dataset_mapping`.`entity_category` order by `v_entity_dataset_mapping`.`entity` ASC separator ',') AS `entity_category`,`v_entity_dataset_mapping`.`dataset_key` AS `dataset_key`,`v_entity_dataset_mapping`.`dataset_name` AS `dataset_name`,`v_entity_dataset_mapping`.`dataset_query` AS `dataset_query`,`v_entity_dataset_mapping`.`id_db_connection` AS `id_db_connection`,`tbl_db_connection`.`db_hostname` AS `db_hostname`,`v_entity_dataset_mapping`.`status_aktif_dataset` AS `status_aktif_dataset`,`v_entity_dataset_mapping`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_db_connection`.`db_name` AS `db_name` from (`v_entity_dataset_mapping` join `tbl_db_connection` on(`tbl_db_connection`.`id_submit_db_connection` = `v_entity_dataset_mapping`.`id_db_connection`)) where `v_entity_dataset_mapping`.`status_aktif_entity_combination_list` = 1 and `v_entity_dataset_mapping`.`status_aktif_entity` = 1 group by `v_entity_dataset_mapping`.`id_submit_entity_combination` ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_entity_dataset_mapping`
---
-DROP TABLE IF EXISTS `v_entity_dataset_mapping`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_entity_dataset_mapping`  AS  select `tbl_entity_combination`.`id_submit_entity_combination` AS `id_submit_entity_combination`,`tbl_entity_combination_list`.`id_entity` AS `id_entity`,`tbl_entity`.`entity` AS `entity`,`tbl_entity`.`entity_category` AS `entity_category`,`tbl_entity_combination_list`.`id_entity_combination` AS `id_entity_combination`,`tbl_dataset`.`dataset_key` AS `dataset_key`,`tbl_dataset`.`dataset_name` AS `dataset_name`,`tbl_dataset`.`dataset_query` AS `dataset_query`,`tbl_dataset`.`id_db_connection` AS `id_db_connection`,`tbl_entity_combination_list`.`status_aktif_entity_combination_list` AS `status_aktif_entity_combination_list`,`tbl_entity`.`status_aktif_entity` AS `status_aktif_entity`,`tbl_dataset`.`status_aktif_dataset` AS `status_aktif_dataset`,`tbl_entity_combination`.`status_aktif_entity_combination` AS `status_aktif_entity_combination`,`tbl_entity_combination_list`.`id_submit_entity_combination_list` AS `id_submit_entity_combination_list`,`tbl_entity_combination_list`.`tgl_entity_combination_list_last_modified` AS `tgl_entity_combination_list_last_modified`,`tbl_entity_combination_list`.`id_user_entity_combination_list_last_modified` AS `id_user_entity_combination_list_last_modified`,`tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`tgl_entity_last_modified` AS `tgl_entity_last_modified`,`tbl_entity`.`id_user_entity_last_modified` AS `id_user_entity_last_modified`,`tbl_entity_combination`.`tgl_entity_combination_last_modified` AS `tgl_entity_combination_last_modified`,`tbl_entity_combination`.`id_user_entity_combination_last_modified` AS `id_user_entity_combination_last_modified`,`tbl_dataset`.`id_submit_dataset` AS `id_submit_dataset`,`tbl_dataset`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_dataset`.`id_user_dataset_last_modified` AS `id_user_dataset_last_modified` from (((`tbl_dataset` join `tbl_entity_combination` on(`tbl_entity_combination`.`id_submit_entity_combination` = `tbl_dataset`.`id_entity_combination`)) left join `tbl_entity_combination_list` on(`tbl_entity_combination_list`.`id_entity_combination` = `tbl_entity_combination`.`id_submit_entity_combination`)) left join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_combination_list`.`id_entity`)) ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_related_dataset`
---
-DROP TABLE IF EXISTS `v_related_dataset`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_related_dataset`  AS  select `tbl_dataset_related`.`id_submit_dataset_related` AS `id_submit_dataset_related`,`tbl_dataset_related`.`id_dataset` AS `id_dataset`,`tbl_dataset_related`.`id_dataset_related` AS `id_dataset_related`,`tbl_dataset`.`id_submit_dataset` AS `id_submit_dataset`,`tbl_dataset`.`dataset_key` AS `dataset_key`,`tbl_dataset`.`dataset_name` AS `dataset_name`,`tbl_dataset`.`dataset_query` AS `dataset_query`,`tbl_dataset`.`id_entity_combination` AS `id_entity_combination`,`tbl_dataset`.`id_db_connection` AS `id_db_connection`,`tbl_dataset_related`.`status_aktif_dataset_related` AS `status_aktif_dataset_related`,`tbl_dataset_related`.`tgl_dataset_related_last_modified` AS `tgl_dataset_related_last_modified`,`tbl_dataset_related`.`id_user_dataset_related_last_modified` AS `id_user_dataset_related_last_modified`,`tbl_dataset`.`status_aktif_dataset` AS `status_aktif_dataset`,`tbl_dataset`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_dataset`.`id_user_dataset_last_modified` AS `id_user_dataset_last_modified` from (`tbl_dataset_related` join `tbl_dataset` on(`tbl_dataset`.`id_submit_dataset` = `tbl_dataset_related`.`id_dataset_related`)) ;
 
 --
 -- Indexes for dumped tables
@@ -516,19 +286,6 @@ ALTER TABLE `tbl_entity_combination`
 ALTER TABLE `tbl_entity_combination_list`
   ADD PRIMARY KEY (`id_submit_entity_combination_list`);
 
---
--- Indexes for table `tbl_token`
---
-ALTER TABLE `tbl_token`
-  ADD PRIMARY KEY (`id_submit_token`);
-
---
--- Indexes for table `tbl_user`
---
-ALTER TABLE `tbl_user`
-  ADD PRIMARY KEY (`id_submit_user`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -574,19 +331,19 @@ ALTER TABLE `tbl_entity_combination`
 ALTER TABLE `tbl_entity_combination_list`
   MODIFY `id_submit_entity_combination_list` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
---
--- AUTO_INCREMENT for table `tbl_token`
---
-ALTER TABLE `tbl_token`
-  MODIFY `id_submit_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT for table `tbl_user`
---
-ALTER TABLE `tbl_user`
-  MODIFY `id_submit_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
+-- --------------------------------------------------------
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE VIEW `v_detail_dataset`  AS  select `tbl_dataset`.`id_submit_dataset` AS `id_submit_dataset`,`tbl_dataset`.`dataset_name` AS `dataset_name`,`tbl_dataset`.`dataset_query` AS `dataset_query`,`tbl_dataset`.`id_db_connection` AS `id_db_connection`,`tbl_dataset`.`status_aktif_dataset` AS `status_aktif_dataset`,`tbl_dataset`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_dataset`.`id_user_dataset_last_modified` AS `id_user_dataset_last_modified`,`tbl_db_connection`.`id_submit_db_connection` AS `id_submit_db_connection`,`tbl_db_connection`.`db_hostname` AS `db_hostname`,`tbl_db_connection`.`db_username` AS `db_username`,`tbl_db_connection`.`db_password` AS `db_password`,`tbl_db_connection`.`db_name` AS `db_name`,`tbl_db_connection`.`status_aktif_db_connection` AS `status_aktif_db_connection`,`tbl_db_connection`.`tgl_db_connection_last_modified` AS `tgl_db_connection_last_modified`,`tbl_db_connection`.`id_user_db_connection_last_modified` AS `id_user_db_connection_last_modified` from (`tbl_dataset` join `tbl_db_connection` on(`tbl_db_connection`.`id_submit_db_connection` = `tbl_dataset`.`id_db_connection`)) ;
+
+
+CREATE VIEW `v_detail_entity_mapping`  AS  select `tbl_entity_combination_list`.`id_submit_entity_combination_list` AS `id_submit_entity_combination_list`,`tbl_entity_combination_list`.`id_entity` AS `id_entity`,`tbl_entity_combination_list`.`id_entity_combination` AS `id_entity_combination`,`tbl_entity_combination_list`.`tgl_entity_combination_list_last_modified` AS `tgl_entity_combination_list_last_modified`,`tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`entity` AS `entity`,`tbl_entity`.`entity_category` AS `entity_category` from (`tbl_entity_combination_list` join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_combination_list`.`id_entity`)) where `tbl_entity`.`status_aktif_entity` = 1 and `tbl_entity_combination_list`.`status_aktif_entity_combination_list` = 1 ;
+
+
+CREATE VIEW `v_entity_dataset_mapping`  AS  select `tbl_entity_combination`.`id_submit_entity_combination` AS `id_submit_entity_combination`,`tbl_entity_combination_list`.`id_entity` AS `id_entity`,`tbl_entity`.`entity` AS `entity`,`tbl_entity`.`entity_category` AS `entity_category`,`tbl_entity_combination_list`.`id_entity_combination` AS `id_entity_combination`,`tbl_dataset`.`dataset_key` AS `dataset_key`,`tbl_dataset`.`dataset_name` AS `dataset_name`,`tbl_dataset`.`dataset_query` AS `dataset_query`,`tbl_dataset`.`id_db_connection` AS `id_db_connection`,`tbl_entity_combination_list`.`status_aktif_entity_combination_list` AS `status_aktif_entity_combination_list`,`tbl_entity`.`status_aktif_entity` AS `status_aktif_entity`,`tbl_dataset`.`status_aktif_dataset` AS `status_aktif_dataset`,`tbl_entity_combination`.`status_aktif_entity_combination` AS `status_aktif_entity_combination`,`tbl_entity_combination_list`.`id_submit_entity_combination_list` AS `id_submit_entity_combination_list`,`tbl_entity_combination_list`.`tgl_entity_combination_list_last_modified` AS `tgl_entity_combination_list_last_modified`,`tbl_entity_combination_list`.`id_user_entity_combination_list_last_modified` AS `id_user_entity_combination_list_last_modified`,`tbl_entity`.`id_submit_entity` AS `id_submit_entity`,`tbl_entity`.`tgl_entity_last_modified` AS `tgl_entity_last_modified`,`tbl_entity`.`id_user_entity_last_modified` AS `id_user_entity_last_modified`,`tbl_entity_combination`.`tgl_entity_combination_last_modified` AS `tgl_entity_combination_last_modified`,`tbl_entity_combination`.`id_user_entity_combination_last_modified` AS `id_user_entity_combination_last_modified`,`tbl_dataset`.`id_submit_dataset` AS `id_submit_dataset`,`tbl_dataset`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_dataset`.`id_user_dataset_last_modified` AS `id_user_dataset_last_modified` from (((`tbl_dataset` join `tbl_entity_combination` on(`tbl_entity_combination`.`id_submit_entity_combination` = `tbl_dataset`.`id_entity_combination`)) left join `tbl_entity_combination_list` on(`tbl_entity_combination_list`.`id_entity_combination` = `tbl_entity_combination`.`id_submit_entity_combination`)) left join `tbl_entity` on(`tbl_entity`.`id_submit_entity` = `tbl_entity_combination_list`.`id_entity`)) ;
+
+CREATE VIEW `v_endpoint_intent_dataset_mapping`  AS  select `v_entity_dataset_mapping`.`id_submit_entity_combination` AS `id_submit_entity_combination`,`v_entity_dataset_mapping`.`id_submit_dataset` AS `id_submit_dataset`,group_concat(`v_entity_dataset_mapping`.`entity` order by `v_entity_dataset_mapping`.`entity` ASC separator ',') AS `entity`,group_concat(`v_entity_dataset_mapping`.`entity_category` order by `v_entity_dataset_mapping`.`entity` ASC separator ',') AS `entity_category`,`v_entity_dataset_mapping`.`dataset_key` AS `dataset_key`,`v_entity_dataset_mapping`.`dataset_name` AS `dataset_name`,`v_entity_dataset_mapping`.`dataset_query` AS `dataset_query`,`v_entity_dataset_mapping`.`id_db_connection` AS `id_db_connection`,`tbl_db_connection`.`db_hostname` AS `db_hostname`,`v_entity_dataset_mapping`.`status_aktif_dataset` AS `status_aktif_dataset`,`v_entity_dataset_mapping`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_db_connection`.`db_name` AS `db_name` from (`v_entity_dataset_mapping` join `tbl_db_connection` on(`tbl_db_connection`.`id_submit_db_connection` = `v_entity_dataset_mapping`.`id_db_connection`)) where `v_entity_dataset_mapping`.`status_aktif_entity_combination_list` = 1 and `v_entity_dataset_mapping`.`status_aktif_entity` = 1 group by `v_entity_dataset_mapping`.`id_submit_entity_combination` ;
+
+
+
+CREATE VIEW `v_related_dataset`  AS  select `tbl_dataset_related`.`id_submit_dataset_related` AS `id_submit_dataset_related`,`tbl_dataset_related`.`id_dataset` AS `id_dataset`,`tbl_dataset_related`.`id_dataset_related` AS `id_dataset_related`,`tbl_dataset`.`id_submit_dataset` AS `id_submit_dataset`,`tbl_dataset`.`dataset_key` AS `dataset_key`,`tbl_dataset`.`dataset_name` AS `dataset_name`,`tbl_dataset`.`dataset_query` AS `dataset_query`,`tbl_dataset`.`id_entity_combination` AS `id_entity_combination`,`tbl_dataset`.`id_db_connection` AS `id_db_connection`,`tbl_dataset_related`.`status_aktif_dataset_related` AS `status_aktif_dataset_related`,`tbl_dataset_related`.`tgl_dataset_related_last_modified` AS `tgl_dataset_related_last_modified`,`tbl_dataset_related`.`id_user_dataset_related_last_modified` AS `id_user_dataset_related_last_modified`,`tbl_dataset`.`status_aktif_dataset` AS `status_aktif_dataset`,`tbl_dataset`.`tgl_dataset_last_modified` AS `tgl_dataset_last_modified`,`tbl_dataset`.`id_user_dataset_last_modified` AS `id_user_dataset_last_modified` from (`tbl_dataset_related` join `tbl_dataset` on(`tbl_dataset`.`id_submit_dataset` = `tbl_dataset_related`.`id_dataset_related`)) ;
