@@ -31,16 +31,18 @@ class Welcome extends CI_Controller
     $request = $this->input->post("question");
 
     $response = json_decode($this->wit->get_message($request)["response"], true);
-    $counter = 0;
     #print_r($response["entities"]);
     $has_entity = false;
     $replace_array = array();
+    $counter = 0;
     foreach ($response["entities"] as $key => $value) {
       $has_entity = true;
-      $entity_key = $response["entities"][$key][0]["name"];
-      $entity_value = $response["entities"][$key][0]["body"];
-      $checkmapping[$counter] = $entity_key;
-      $replace_array["&" . $entity_key . $counter] = $entity_value;
+      for($a = 0; $a<count($value); $a++){
+        $entity_key = $value[$a]["name"];
+        $entity_value = $value[$a]["body"];
+        $checkmapping[$counter] = $entity_key;
+        $replace_array["&" . $entity_key . $a] = $entity_value;
+      }
       $counter++;
     }
     if ($has_entity) {
