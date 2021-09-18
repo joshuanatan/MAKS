@@ -100,7 +100,7 @@
                           <select required class="form-control" name="id_result_type">
                             <option value=0 selected disabled>How do we present this information?</option>
                             <?php for ($a = 0; $a < count($result_type); $a++) : ?>
-                              <option value="<?php echo $result_type[$a]["result_type"]; ?>"><?php echo $result_type[$a]["result_type"]; ?></option>
+                              <option value="<?php echo $result_type[$a]["id_pk_result_type"]; ?>"><?php echo $result_type[$a]["result_type"]; ?></option>
                             <?php endfor; ?>
                           </select>
                         </div>
@@ -134,7 +134,7 @@
                           </tbody>
                         </table>
                         <div class="form-group">
-                          <h5>Dataset Query <br />Let me know if there are needs to put argument inside my query! use prefix '<i>&</i>'+<i>entity_name</i>+'<i>sequence_number</i>'.</h5>
+                          <h5>Dataset Query <br />Let me know if there are needs to put argument inside my query! use prefix '<i>&</i>'+<i>entity_name</i>+'<i>sequence_number</i>'. <i>Avoid using "set", I don't know why, I just simply do not understand</h5>
                           <textarea required class="form-control" rows="10" name="dataset_query" placeholder="select * from table_database where kolom_database = &entity11 and kolom_database2 = &entity21 and kolom_database = &entity12"></textarea>
                         </div>
                         <hr />

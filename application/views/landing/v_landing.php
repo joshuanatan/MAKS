@@ -42,9 +42,6 @@
             <li class="nav-item active">
               <a class="nav-link" href="#">Welcome</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
           </ul>
           <span class="navbar-text">
             Assisting you to get the information you need
@@ -60,7 +57,7 @@
                   <span class="sp-2">Management</span> System
                 </h1>
                 <h5 class="sp-1">Ask Me Here</h5>
-                <form id="form_id" target="_blank" action="<?php echo base_url(); ?>welcome/process" method="POST">
+                <form id="form_id" action="<?php echo base_url(); ?>welcome/process" method="POST">
                   <input name="question" placeholder="Ask me here" id="search_text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ask me here'" class="common-input mt-20" required="" type="text" style="color:black">
                 </form>
               </div>
