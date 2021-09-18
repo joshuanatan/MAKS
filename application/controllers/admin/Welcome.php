@@ -68,14 +68,14 @@ class Welcome extends CI_Controller {
 		$this->load->view("welcome_message");
 	}
 	public function logout(){
-		redirect("welcome");
+		redirect("admin/welcome");
 	}
 	private function check_session(){
 		if($this->session->id_user == ""){
 			$msg = "Session Expired";	
 			$this->session->set_flashdata("status_login","error");
 			$this->session->set_flashdata("msg_login",$msg);
-			redirect("welcome");
+			redirect("admin/welcome");
 		}
 	}
 	public function change_password(){
@@ -84,12 +84,18 @@ class Welcome extends CI_Controller {
 				"field" => "password",
 				"label" => "Password",
 				"rules" => "required"
+			),
+			array(
+				"field" => "old_password",
+				"label" => "Current Password",
+				"rules" => "required"
 			)
 		);
 		$this->form_validation->set_rules($config);
 		if($this->form_validation->run()){
 			$where = array(
-				"id_submit_user" => $this->session->id_user
+				"id_submit_user" => $this->session->id_user,
+				"password_user" => md5($this->input->post("old_password"))
 			);
 			$data = array(
 				"password_user" => md5($this->input->post("password"))
@@ -98,7 +104,7 @@ class Welcome extends CI_Controller {
 			$msg = "Password updated. Session Expired";
 			$this->session->set_flashdata("status_login","error");
 			$this->session->set_flashdata("msg_login",$msg);
-			redirect("welcome");
+			redirect("admin/welcome");
 		}
 		else{
 			$msg = validation_errors();

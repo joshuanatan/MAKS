@@ -50,7 +50,7 @@
             <button data-toggle="modal" data-target="#changePassword" class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Change Password</button>
 
 
-            <a class="dropdown-item" href="<?php echo base_url(); ?>admin/logout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>admin/welcome/logout" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
           </div>
         </li>
       </ul>
@@ -72,9 +72,13 @@
         <h4 class="modal-title">CHANGE PASSWORD</h4>
       </div>
       <div class="modal-body">
-        <form action="#" method="POST">
+        <form action="<?php echo base_url();?>admin/welcome/change_password" method="POST">
           <div class="form-group">
-            <h5 style="opacity:0.5">NEW PASSWORD</h5>
+            <h5 style="opacity:0.5">Current Password</h5>
+            <input type="password" name="old_password" class="form-control">
+          </div>
+          <div class="form-group">
+            <h5 style="opacity:0.5">New Password</h5>
             <input type="password" name="password" class="form-control">
           </div>
           <div class="form-group">
@@ -88,7 +92,7 @@
 <div class="site-menubar">
   <div class="site-menubar-header">
     <div class="cover overlay">
-      <div class="overlay-panel vertical-align overlay-background">
+      <div class="overlay-panel vertical-align overlay-background" style = "background-color:#6c303c">
         <div class="vertical-align-middle">
           <a class="avatar avatar-lg" href="javascript:void(0)">
             <img src="<?php echo base_url(); ?>assets/images/default.jpg" alt="...">
@@ -119,20 +123,20 @@
           </li>
           <li class="site-menu-item">
             <a href="<?php echo base_url(); ?>admin/km-function/database">
-              <i class="site-menu-icon wb-arrow-expand" aria-hidden="true"></i>
+              <i class="site-menu-icon wb-code-working" aria-hidden="true"></i>
               <span class="site-menu-title">Data Source Connection</span>
             </a>
           </li>
           <li class="site-menu-item">
-            <a href="<?php echo base_url(); ?>admin/km-function/dataset">
-              <i class="site-menu-icon wb-arrow-expand" aria-hidden="true"></i>
-              <span class="site-menu-title">Query Builder</span>
+            <a href="<?php echo base_url(); ?>admin/rb-function/result_type">
+              <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
+              <span class="site-menu-title">Result Type</span>
             </a>
           </li>
           <li class="site-menu-item">
-            <a href="<?php echo base_url(); ?>admin/rb-function/result_type">
-              <i class="site-menu-icon wb-arrow-expand" aria-hidden="true"></i>
-              <span class="site-menu-title">Result Type</span>
+            <a href="<?php echo base_url(); ?>admin/km-function/dataset">
+              <i class="site-menu-icon wb-stats-bars" aria-hidden="true"></i>
+              <span class="site-menu-title">Query Builder</span>
             </a>
           </li>
         </ul>
