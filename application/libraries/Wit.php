@@ -130,6 +130,50 @@ class Wit
     return $respond;
   }
 
+  public function delete_intents($intent_name)
+  {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://api.wit.ai/intents/".$intent_name,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "DELETE",
+      CURLOPT_HTTPHEADER => array(
+        "Authorization: Bearer " . $this->server_access_token
+      ),
+    ));
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $respond["err"] = $err;
+    $respond["response"] = $response;
+    curl_close($curl);
+    return $respond;
+  }
+  public function delete_entities($entity_name)
+  {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://api.wit.ai/entities/".$entity_name,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "DELETE",
+      CURLOPT_HTTPHEADER => array(
+        "Authorization: Bearer " . $this->server_access_token
+      ),
+    ));
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    $respond["err"] = $err;
+    $respond["response"] = $response;
+    curl_close($curl);
+    return $respond;
+  }
   public function get_message($message)
   {
     $curl = curl_init();

@@ -122,6 +122,18 @@
             </a>
           </li>
           <li class="site-menu-item">
+            <a href="<?php echo base_url(); ?>admin/nlp-function/intent">
+              <i class="site-menu-icon wb-quote-right" aria-hidden="true"></i>
+              <span class="site-menu-title">Intent Management</span>
+            </a>
+          </li>
+          <li class="site-menu-item">
+            <a href="<?php echo base_url(); ?>admin/nlp-function/entity">
+              <i class="site-menu-icon wb-copy" aria-hidden="true"></i>
+              <span class="site-menu-title">Entity Management</span>
+            </a>
+          </li>
+          <li class="site-menu-item">
             <a href="<?php echo base_url(); ?>admin/km-function/database">
               <i class="site-menu-icon wb-code-working" aria-hidden="true"></i>
               <span class="site-menu-title">Data Source Connection</span>
