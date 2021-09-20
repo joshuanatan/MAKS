@@ -57,7 +57,7 @@
       <!-- End Navbar Toolbar Right -->
 
       <div class="navbar-brand navbar-brand-center">
-        <a href="<?php echo base_url(); ?>">
+        <a href="<?php echo base_url(); ?>admin/welcome/dashboard">
           <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?php echo base_url(); ?>assets/images/logo.png" title="Remark">
           <img class="navbar-brand-logo navbar-brand-logo-special" src="<?php echo base_url(); ?>assets/images/logo.png" title="Remark">
         </a>
@@ -139,12 +139,14 @@
               <span class="site-menu-title">Data Source Connection</span>
             </a>
           </li>
-          <li class="site-menu-item">
-            <a href="<?php echo base_url(); ?>admin/rb-function/result_type">
-              <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
-              <span class="site-menu-title">Result Type</span>
-            </a>
-          </li>
+          <!--
+            <li class="site-menu-item">
+              <a href="<?php echo base_url(); ?>admin/rb-function/result_type">
+                <i class="site-menu-icon wb-layout" aria-hidden="true"></i>
+                <span class="site-menu-title">Result Type</span>
+              </a>
+            </li>
+          -->
           <li class="site-menu-item">
             <a href="<?php echo base_url(); ?>admin/km-function/dataset">
               <i class="site-menu-icon wb-stats-bars" aria-hidden="true"></i>

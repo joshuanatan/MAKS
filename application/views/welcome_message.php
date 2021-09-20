@@ -57,14 +57,14 @@
 				<br />
 				<h3>Quick Brief</h3>
 				<hr />
-				<h4>This administrative page consists of 7 main functions namely: </h4>
+				<h4>This administrative page consists of the following main functions: </h4>
 				<ul>
 					<li><a href = "<?php echo base_url();?>admin/user">User management</a>: To manage other administrator accounts
 					<li><a href = "<?php echo base_url();?>admin/nlp-function/setup">Wit AI account management</a>: To manage Wit.ai's API key
 					<li><a href = "<?php echo base_url();?>admin/nlp-function/intent">Intent management</a>: To manage Wit.ai's intents repository
 					<li><a href = "<?php echo base_url();?>admin/nlp-function/entity">Entity management</a>: To manage Wit.ai's entity repository
 					<li><a href = "<?php echo base_url();?>admin/km-function/database">Database connection / data source connection management</a>: To manage the connection to the data sources that will be used by MAKS to obtain the requested data
-					<li><a href = "<?php echo base_url();?>admin/rb-function/result_type">Result type management</a>: To manage the presentation of the information that will be provided to the user
+					<!--<li><a href = "<?php echo base_url();?>admin/rb-function/result_type">Result type management</a>: To manage the presentation of the information that will be provided to the user-->
 					<li><a href = "<?php echo base_url();?>admin/km-function/dataset">Information / dashboard management</a>: To manage the information that will be presented to the user. 
 				</ul>
 				<br />

@@ -69,6 +69,13 @@
         <?php endif; ?>
         <div class="page-body">
           <div class="col-lg-12">
+            <p><strong>Developer notes:</strong> Congratulation on finding this page. This page is not intended to be used since the configuration is difficult. However, you might find this useful if you want to add another dashboard element (currently active elements are table, bar chart, and widget). If you decide to start using this feature, please take a look at the following files:<br/>
+            <ul>
+              <li>Main flow code (/application/controllers/welcome/process)</li>
+              <li>Result view (/application/views/result_template/main)</li>
+              <li>Other <i>result_type</i> template. </li>
+            </ul>
+            take a look how all these files works together. Thank you.</p>
             <button type="button" data-toggle="modal" data-target="#addResultType" class="btn btn-primary btn-sm">+ ADD RESULT TYPE</button>
             <a href="<?php echo base_url(); ?>admin/rb-function/result_type/recycle_bin" class="btn btn-light btn-sm"><i class="icon wb-trash"></i></a>
             <br /><br />
