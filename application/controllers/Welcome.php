@@ -28,6 +28,7 @@ class Welcome extends CI_Controller
     $request = $this->input->post("question");
 
     $response = json_decode($this->wit->get_message($request)["response"], true);
+    #print_r($response);
     if(count($response["intents"])>0):
       $has_entity = false;
       $replace_array = array();
